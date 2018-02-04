@@ -20,7 +20,7 @@ const speedTestDb = new Influx.InfluxDB({
         testServerPing: Influx.FieldType.FLOAT,
       },
       tags: [
-        'cc', 'location', 'isp', 'ip'
+        'cc', 'location', 'isp', 'ip', 'server'
       ]
     },
   ],
@@ -67,7 +67,7 @@ function collectSpeedData() {
           testServerLocation: data.server.location,
           testServerPing: data.server.ping,
         },
-        tags: { cc: data.server.cc, location: data.server.location, isp: data.client.isp, ip: data.client.ip },
+        tags: { cc: data.server.cc, location: data.server.location, isp: data.client.isp, ip: data.client.ip, server: data.server.host },
         timestamp: Date.now() + '000000',
       });
       speedTestDb.writePoints(points)
